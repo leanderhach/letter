@@ -1,0 +1,10 @@
+body, html{
+    height:100%;
+    width:100%;
+    background:black;
+    margin:0;
+}
+#letter{
+    color:white;
+    font: 40px inconsolata, sans-serif;
+}
