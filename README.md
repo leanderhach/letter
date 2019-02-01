@@ -2,7 +2,7 @@
 A simple, dependency-free javascript typing plugin
 
 
-##Installation
+## Installation
 
  Include the letter.js file at the end of your html:
 
@@ -10,16 +10,16 @@ A simple, dependency-free javascript typing plugin
     <script src="letter.js"></script>
 ```
 
-##Usage
+## Usage
 
 All that's really needed is shown below:
 
-HTML:
+###### HTML:
 ```
 <div id="letter"><span id="letterText">Stuff in here will be replaced by letter</span></div>
 ```
 
-JS:
+###### JS:
 ```
 var options = {
     strings: ["The first One", "The second One", "Something completely Different"],
@@ -38,7 +38,7 @@ var options = {
 }
 ```
 
-#Options
+# Options
 
 There are several options that can be configured when you intialise letter
 
