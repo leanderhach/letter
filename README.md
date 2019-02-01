@@ -42,13 +42,13 @@ var options = {
 
 There are several options that can be configured when you intialise letter
 
-|Command|Type|Options|Effect||default|
-|strings|array| |The strings that letter will use|["You forgot the strings"]|
-|typeSpeed|int| |How long it takes to type a string|2500|
-|deleteSpeed|int| |How long it takes to delete a string|2500|
-|stayDuration|int| |How long a string stays visible|2500|
-|smartDelete|boolean||If enabled, letter will only remove characters up to the first one that matches the next string|true|
-|repeat|boolean||If enabled, will repeat the strings|true|
-|element|element||The element that will be used by letter|#letter|
-|cursor|string|none, default, classic|Select a cursor to simulate actual typing|none|
-|cursorBlink|boolean||Select whether or not the cursor should blink|false|
+| Command | Type | Options|Effect||default|
+| `strings` | array | | The strings that letter will use | ["You forgot the strings"] |
+| `typeSpeed` |int| | How long it takes to type a string | 2500 |
+| `deleteSpeed` |int| | How long it takes to delete a string | 2500 |
+| `stayDuration` |int| | How long a string stays visible | 2500 |
+| `smartDelete` |boolean | | If enabled, letter will only remove characters up to the first one that matches the next string | true |
+| `repeat` |boolean | | If enabled, will repeat the strings | true |
+| `element` |element | | The element that will be used by letter | #letter |
+| `cursor` | string | none, default, classic | Select a cursor to simulate actual typing | none |
+| `cursorBlink` | boolean | | Select whether or not the cursor should blink | false |
