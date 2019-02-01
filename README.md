@@ -42,7 +42,8 @@ var options = {
 
 There are several options that can be configured when you intialise letter
 
-| Command | Type | Options|Effect||default|
+| Command | Type | Options| Effect | default |
+| ------- | ---- | ------ | ------ | ------- |
 | `strings` | array | | The strings that letter will use | ["You forgot the strings"] |
 | `typeSpeed` |int| | How long it takes to type a string | 2500 |
 | `deleteSpeed` |int| | How long it takes to delete a string | 2500 |
