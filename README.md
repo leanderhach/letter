@@ -53,3 +53,5 @@ There are several options that can be configured when you intialise letter
 | `element` |element | | The element that will be used by letter | #letter |
 | `cursor` | string | none, default, classic | Select a cursor to simulate actual typing | none |
 | `cursorBlink` | boolean | | Select whether or not the cursor should blink | false |
+| `color` | string | | Set the color of text | #FFFFFF |
+| `cursorColor` | string | | Set the color of the cursor | #FFFFFF |
