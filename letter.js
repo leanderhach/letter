@@ -1,5 +1,5 @@
 // Unminified version
-// just incude this file at the bottom of your html and call as per the readme, or use the minified version
+// just include this file at the bottom of your html and call as per the readme, or use the minified version
 
 var running = false;
 
@@ -15,10 +15,12 @@ var Letter = function (options){
         repeat: true,
         element: document.querySelector('#letter > #text'),
         cursor:'none',
-        cursorBlink: false
+        cursorBlink: false,
+        color: '#FFFFFF',
+        cursorColor: '#FFFFFF'
     }
 
-    //check and set defaults for options thtat were not defined by the user
+    //check and set defaults for options that were not defined by the user
     this.options = options || {};
 
     for(let option in defaultOptions){
@@ -31,9 +33,11 @@ var Letter = function (options){
 
 Letter.prototype.start = function(){
 
+    this.options.element.style.color = this.options.color;
+
     this.setCursor();
 
-    let totalTimeout = this.options.deleteSpeed + this.options.typeSpeed + this.options.stayDuration;
+    let totalTimeout = this.options.deleteSpeed + this.options.typeSpeed + this.options.stayDuration + 500;
     let i = 0;
     let scope = this;
 
@@ -162,7 +166,7 @@ Letter.prototype.setCursor = function(){
                 Object.assign(document.querySelector("#letterCursor").style, {
                     height: 'calc(100% - 10px)',
                     width: '2px',
-                    background: 'white',
+                    background: this.options.cursorColor,
                     position: 'absolute',
                     'margin-top': '5px',
                     'margin-bottom': '5px',
