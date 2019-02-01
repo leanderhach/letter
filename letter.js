@@ -48,6 +48,7 @@ Letter.prototype.smartDeleteTyping = function(){
             for (let i = 0; i < string.length; i++) {
                 if(string.charAt(i) !== previousString.charAt(i)){
                     this.removeLetters(i, string.substring(i, string.length));
+                    return;
                 }
                 
             }
@@ -92,8 +93,9 @@ Letter.prototype.removeLetters = function(index, string){
     //calculate the delete speed
     let timeoutLength = this.options.deleteSpeed / (currentLength - index)
 
-    while(index > currentLength){
-        currentString.slice(0, 1)
+    while(index < currentLength){
+        console.log("things");
+        currentLength--;
     }
 
 
