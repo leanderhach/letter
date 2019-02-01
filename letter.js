@@ -1,25 +1,29 @@
 // Unminified version
-// just incude this file at the bottom of your html and call as per the readme, or use the minified version
+// just include this file at the bottom of your html and call as per the readme, or use the minified version
 
 var running = false;
 
 var Letter = function (options){
 
     //declare default values for options
-    defaultOptions = {
+    let defaultOptions = {
         strings: ["You forgot the strings"],
         typeSpeed: 2500,
         deleteSpeed: 2500,
         stayDuration: 2500,
         smartDelete: true,
         repeat: true,
-        element: document.getElementById('letter')
+        element: document.querySelector('#letter > #text'),
+        cursor:'none',
+        cursorBlink: false,
+        color: '#FFFFFF',
+        cursorColor: '#FFFFFF'
     }
 
-    //check and set defaults for options thtat were not defined by the user
+    //check and set defaults for options that were not defined by the user
     this.options = options || {};
 
-    for(option in defaultOptions){
+    for(let option in defaultOptions){
         if(defaultOptions.hasOwnProperty(option) && !this.options.hasOwnProperty(option)){
             this.options[option] = defaultOptions[option];
         }
@@ -29,29 +33,48 @@ var Letter = function (options){
 
 Letter.prototype.start = function(){
 
-    running = true;
+    this.options.element.style.color = this.options.color;
 
-    if(this.options.smartDelete){
-        this.smartDeleteTyping();
-    } else{
-        this.startTyping();
+    this.setCursor();
+
+    let totalTimeout = this.options.deleteSpeed + this.options.typeSpeed + this.options.stayDuration + 500;
+    let i = 0;
+    let scope = this;
+
+    let getItem = function(scope){
+        if(scope.options.smartDelete){
+            scope.smartDeleteTyping(scope.options.strings[i]);
+        } else{
+            scope.startTyping(scope.options.strings[i]);
+        }
+        i++;
+
+        setTimeout(() => {
+            if(i != scope.options.strings.length){
+                getItem(scope);
+            } else if(i == scope.options.strings.length && scope.options.repeat) {
+                i = 0;
+                getItem(scope);
+            }
+        }, totalTimeout)
     }
+
+    getItem(scope);
 }
 
-Letter.prototype.smartDeleteTyping = function(){
+Letter.prototype.smartDeleteTyping = function(string){
 
-    if(running == true){
-        let previousString = this.options.element.innerHTML;
+    //weird compatibility issue with webstorm
+    string = String(string);
 
-        for(string in this.options.strings){
+    let previousString = this.options.element.innerHTML;
 
-            for (let i = 0; i < string.length; i++) {
-                if(string.charAt(i) !== previousString.charAt(i)){
-                    this.removeLetters(i, string.substring(i, string.length));
-                    return;
-                }
-                
-            }
+    for (let i = 0; i < string.length; i++) {
+        if(string.charAt(i) !== previousString.charAt(i)) {
+            console.log(string[i]);
+            console.log(i);
+            this.removeLetters(i, string.substring(i, string.length));
+            return;
         }
     }
 }
@@ -82,25 +105,89 @@ Letter.prototype.startTyping = function(){
     }
 }
 
-Letter.prototype.removeLetters = function(index, string){
 
-    //get the current lentgh of the string displayed to the user
+Letter.prototype.removeLetters = function(index, newString){
+
+    //get the current length of the string displayed to the user
     let currentLength = this.options.element.innerHTML.length;
-    let currentString = this.options.element.innerHTML;
+    let timeoutLength = this.options.deleteSpeed / (currentLength - index);
+    let scope = this;
 
-    console.log(currentLength, index);
-
-    //calculate the delete speed
-    let timeoutLength = this.options.deleteSpeed / (currentLength - index)
-
-    while(index < currentLength){
-        console.log("things");
+    let removeLoop = function(scope) {
+        scope.options.element.innerHTML = scope.options.element.innerHTML.slice(0, -1);
         currentLength--;
+        setTimeout(() => {
+            if (currentLength > index) {
+                console.log("running it again", currentLength, index);
+                removeLoop(scope);
+            } else{
+                scope.writeLetters(newString);
+            };
+        }, timeoutLength);
+    };
+
+
+    removeLoop(scope);
+}
+
+Letter.prototype.writeLetters = function(string){
+
+    let charCount = string.length
+    let i = 0;
+    let timeoutLength = this.options.typeSpeed / charCount;
+    let scope = this;
+
+    let writeLoop = function (scope) {
+        console.log("writing", string[i]);
+        scope.options.element.innerHTML += string[i];
+        i++;
+
+        setTimeout(() => {
+            if(i != charCount){
+                writeLoop(scope);
+            }
+        }, timeoutLength)
     }
 
-
+    writeLoop(scope);
 
 }
+
+Letter.prototype.setCursor = function(){
+    if(this.options.cursor !== "none") {
+
+        this.options.element.parentElement.style.position = "relative";
+        let cursor = document.createElement("span");
+        cursor.setAttribute("id", "letterCursor");
+        this.options.element.parentNode.appendChild(cursor);
+
+        switch (this.options.cursor) {
+            case 'default':
+                Object.assign(document.querySelector("#letterCursor").style, {
+                    height: 'calc(100% - 10px)',
+                    width: '2px',
+                    background: this.options.cursorColor,
+                    position: 'absolute',
+                    'margin-top': '5px',
+                    'margin-bottom': '5px',
+                    'margin-left': '2px'
+                })
+        }
+
+        if(this.options.cursorBlink){
+            let blink = function(cursor){
+                cursor.style.opacity = (cursor.style.opacity === '1' ? '0' : '1');
+
+                setTimeout(() => {
+                    blink(cursor);
+                }, 400);
+            }
+
+            blink(cursor);
+        }
+    }
+}
+
 Letter.prototype.stop = function(){
     this.running = false;
 }

@@ -3,19 +3,23 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Page Title</title>
+    <title>Letter.js Test</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="test.css" />
     <link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet">
 </head>
 <body>
-    <div id="letter">This is the text that will be replaced</div>
+    <div id="letter"><span id="text">This is the text that will be replaced</span></div>
 
     <script src="letter.js"></script>
     <script>
 
         var options = {
             strings: ["The first One", "The second One", "Something completely Different"],
+            cursor:'default',
+            cursorBlink: true,
+            cursorColor: 'orange',
+            stayDuration: 200
         }
         var letter = new Letter(options)
     
