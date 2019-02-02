@@ -42,6 +42,8 @@ var options = {
 
 There are several options that can be configured when you intialise letter
 
+Please note that if you want to use the cursor options the `letter.css` stylesheet should be included in your html
+
 | Command | Type | Options| Effect | default |
 | ------- | ---- | ------ | ------ | ------- |
 | `strings` | array | | The strings that letter will use | ["You forgot the strings"] |
