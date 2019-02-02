@@ -6,6 +6,7 @@
     <title>Letter.js Test</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="test.css" />
+    <link rel="stylesheet" href="letter.css">
     <link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet">
 </head>
 <body>
@@ -16,12 +17,12 @@
 
         var options = {
             strings: ["The first One", "The second One", "Something completely Different"],
-            cursor:'default',
+            cursor:'classic',
             cursorBlink: true,
             cursorColor: 'orange',
             stayDuration: 200
         }
-        var letter = new Letter(options)
+        var letter = new Letter(options);
     
         letter.start();
     </script>

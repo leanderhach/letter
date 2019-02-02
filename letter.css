@@ -1,0 +1,33 @@
+.classic-cursor, .default-cursor {
+    height: calc(100% - 10px);
+    width: 2px;
+    background: transparent;
+    position: absolute;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 2px;
+}
+
+.classic-cursor{
+    border-bottom-color:transparent;
+    border-top-color: transparent;
+}
+
+.classic-cursor::after, .classic-cursor::before{
+   position:absolute;
+   height:calc(100%);
+   top:-2px;
+   content:'';
+   width:5px;
+   border-top:2px solid;
+   border-bottom:2px solid;
+    border-color:inherit;
+}
+
+.classic-cursor::after{
+     right:-5px;
+ }
+
+.classic-cursor::before{
+     left:-5px;
+ }
